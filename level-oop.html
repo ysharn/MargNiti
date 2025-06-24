@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object-Oriented Programming - MargNiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Function to get the domain from URL query parameters
+        function getDomain() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('domain');
+        }
+
+        // Function to mark the level as completed
+        function markLevelCompleted() {
+            const domain = getDomain(); // Get the domain from the URL
+            if (!domain) {
+                alert('Domain not found. Please go back to the roadmap.');
+                return;
+            }
+
+            // Ensure the domain key is in the correct format
+            const progressKey = `progress-${domain.toLowerCase().replace(' ', '-')}`;
+
+            // Get the current progress (default to 0 if not set)
+            const currentProgress = parseInt(localStorage.getItem(progressKey)) || 0;
+
+            // Update progress to the next level
+            const newProgress = currentProgress + 1;
+            localStorage.setItem(progressKey, newProgress);
+
+            alert(`Level ${newProgress} completed! Level ${newProgress + 1} is now unlocked.`);
+
+            // Redirect to the domain roadmap page
+            window.location.href = `domain-roadmap.html?domain=${encodeURIComponent(domain)}`;
+        }
+    </script>
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full">
+        <a href="home.html" class="text-xl font-bold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+        </a>
+        <h1 class="text-2xl font-bold">Object-Oriented Programming</h1>
+    </nav>
+    <div class="min-h-screen flex flex-col items-center justify-start p-8">
+        <div class="w-full max-w-4xl">
+            <h2 class="text-4xl font-bold text-blue-900 mb-6">Object-Oriented Programming</h2>
+            <p class="text-gray-700 text-xl">Understand OOP concepts like classes, objects, inheritance, and polymorphism.</p>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">1. What is OOP?</h3>
+                <p class="text-gray-700 text-xl">
+                    Object-Oriented Programming (OOP) is a programming paradigm based on the concept of "objects," which can contain data and code to manipulate that data.
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">2. Key Concepts</h3>
+                <p class="text-gray-700 text-xl">
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li><strong>Classes:</strong> Blueprints for creating objects.</li>
+                        <li><strong>Objects:</strong> Instances of classes.</li>
+                        <li><strong>Inheritance:</strong> Reuse code by creating parent-child relationships between classes.</li>
+                        <li><strong>Polymorphism:</strong> Use a single interface to represent different data types.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">3. Examples</h3>
+                <p class="text-gray-700 text-xl">
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li>Create a class to represent a car with properties like color and speed.</li>
+                        <li>Use inheritance to create a subclass for electric cars.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">4. Resources</h3>
+                <p class="text-gray-700 text-xl">
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li><strong>Free Notes:</strong></li>
+                        <li><a href="https://www.w3schools.com/python/python_classes.asp" class="text-blue-600 hover:underline" target="_blank">Python OOP - W3Schools</a></li>
+                        <li><a href="https://javascript.info/object-oriented-programming" class="text-blue-600 hover:underline" target="_blank">JavaScript OOP - JavaScript.info</a></li>
+                    </ul>
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li><strong>YouTube Videos:</strong></li>
+                        <li><a href="https://www.youtube.com/watch?v=JeznW_7DlB0" class="text-blue-600 hover:underline" target="_blank">Python OOP - Tech With Tim</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=PFmuCDHHpwk" class="text-blue-600 hover:underline" target="_blank">JavaScript OOP - FreeCodeCamp</a></li>
+                    </ul>
+                </p>
+            </div>
+
+            <button onclick="markLevelCompleted()" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition mt-8 text-xl">
+                Mark Level as Completed
+            </button>
+        </div>
+    </div>
+</body>
+</html>

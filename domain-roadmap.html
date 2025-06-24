@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domain Roadmap - MargNiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .roadmap-block {
+            background: white;
+            border: 2px solid #3b82f6; /* Blue border */
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .roadmap-block.locked {
+            background: #f3f4f6; /* Gray background for locked levels */
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .roadmap-connector {
+            width: 2px;
+            height: 20px;
+            background: #3b82f6; /* Blue line */
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        // Function to get URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                domain: params.get('domain'),
+            };
+        }
+
+        // Function to get progress for the current domain
+        function getProgress(domain) {
+            const progressKey = `progress-${domain.toLowerCase().replace(' ', '-')}`;
+            return parseInt(localStorage.getItem(progressKey)) || 0;
+        }
+
+        // Function to display domain roadmap and resources
+        function displayDomainRoadmap() {
+            const { domain } = getUrlParams();
+            const roadmapContent = document.getElementById('roadmap-content');
+
+            if (domain) {
+                document.getElementById('domain-title').innerText = `${domain} Roadmap`;
+
+                // Roadmap and resources for both domains
+                const resources = {
+                    'Data Science': [
+                        { 
+                            title: 'Basic Python', 
+                            description: 'Start with Python programming basics, including syntax, data types, and control structures.',
+                            url: 'level-basic-python.html?domain=Data+Science'
+                        },
+                        { 
+                            title: 'Stats & Probability', 
+                            description: 'Understand statistical concepts like mean, median, standard deviation, and probability.',
+                            url: 'level-stats-probability.html?domain=Data+Science'
+                        },
+                        { 
+                            title: 'Advanced Python', 
+                            description: 'Learn advanced Python concepts like object-oriented programming and libraries.',
+                            url: 'level-advanced-python.html?domain=Data+Science'
+                        },
+                        { 
+                            title: 'Data Visualization', 
+                            description: 'Use tools like Matplotlib and Seaborn to create insightful visualizations.',
+                            url: 'level-data-visualization.html?domain=Data+Science'
+                        },
+                        { 
+                            title: 'Data Manipulation', 
+                            description: 'Learn to clean, transform, and manipulate data using Pandas and NumPy.',
+                            url: 'level-data-manipulation.html?domain=Data+Science'
+                        },
+                        { 
+                            title: 'Projects & Resume Prep', 
+                            description: 'Build projects and prepare your resume to showcase your skills.',
+                            url: 'level-projects-resume.html?domain=Data+Science'
+                        },
+                    ],
+                    'Coding': [
+                        { 
+                            title: 'Learn a Programming Language', 
+                            description: 'Choose a language like Python or JavaScript and master its fundamentals.',
+                            url: 'level-programming.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Understand Basic Syntax', 
+                            description: 'Learn the basic syntax, variables, and operators in your chosen language.',
+                            url: 'level-basic-syntax.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Control Structures', 
+                            description: 'Master loops, conditionals, and control flow in programming.',
+                            url: 'level-control-structures.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Functions & Modules', 
+                            description: 'Learn to write reusable functions and organize code using modules.',
+                            url: 'level-functions-modules.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Understand Data Structures', 
+                            description: 'Study arrays, linked lists, stacks, queues, and trees.',
+                            url: 'level-data-structures.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Algorithms', 
+                            description: 'Learn common algorithms like sorting, searching, and recursion.',
+                            url: 'level-algorithms.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Object-Oriented Programming', 
+                            description: 'Understand OOP concepts like classes, objects, inheritance, and polymorphism.',
+                            url: 'level-oop.html?domain=Coding'
+                        },
+                        { 
+                            title: 'Build Projects', 
+                            description: 'Apply your knowledge by building real-world projects to solve problems.',
+                            url: 'level-projects.html?domain=Coding'
+                        },
+                    ],
+                };
+
+                const domainResources = resources[domain] || [];
+                let roadmapHTML = '';
+
+                // Get the user's progress for the current domain
+                const progress = getProgress(domain);
+
+                domainResources.forEach((resource, index) => {
+                    const isLocked = index > progress; // Lock levels beyond the user's progress
+                    roadmapHTML += `
+                        <div class="roadmap-block ${isLocked ? 'locked' : ''}" ${isLocked ? '' : `onclick="window.location.href='${resource.url}'"`}>
+                            <h3 class="text-xl font-bold text-blue-900">${resource.title}</h3>
+                            <p class="text-gray-700 mt-2">${resource.description}</p>
+                            ${isLocked ? '<p class="text-red-500 mt-2">Locked</p>' : ''}
+                        </div>
+                        ${index < domainResources.length - 1 ? '<div class="roadmap-connector"></div>' : ''}
+                    `;
+                });
+
+                roadmapContent.innerHTML = roadmapHTML || '<p class="text-gray-700">No roadmap available for this domain.</p>';
+            } else {
+                roadmapContent.innerHTML = '<p class="text-gray-700">No domain selected.</p>';
+            }
+        }
+
+        // Display domain roadmap when the page loads
+        window.onload = displayDomainRoadmap;
+    </script>
+</head>
+<body class="bg-blue-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full">
+        <!-- Back to Home Link -->
+        <a href="home.html" class="text-lg font-bold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+        </a>
+        <!-- Domain Title -->
+        <h1 id="domain-title" class="text-xl font-bold">Domain Roadmap</h1>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-center justify-start p-8">
+        <!-- Roadmap and Resources -->
+        <div class="w-full max-w-4xl">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">Roadmap & Resources</h2>
+            <div id="roadmap-content" class="text-center"></div>
+        </div>
+    </div>
+</body>
+</html>

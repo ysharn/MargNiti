@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MargNiti - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for trendy blocks */
+        .trendy-block {
+            background: white;
+            border: 2px solid #3b82f6; /* Blue border */
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .trendy-block:hover {
+            transform: scale(1.05); /* Pop effect */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
+        }
+    </style>
+    <script>
+        // Function to display user data from local storage
+        function displayUserData() {
+            const username = localStorage.getItem('username') || 'User';
+            const domain = localStorage.getItem('domain') || 'No domain selected';
+
+            // Display welcome message
+            document.getElementById('welcome-message').innerText = `Welcome, ${username}!`;
+
+            // Display the selected domain as a clickable block
+            const domainBlock = document.getElementById('domain-block');
+            domainBlock.innerHTML = `
+                <div onclick="redirectToDomainPage('${domain}')" class="bg-blue-100 p-6 rounded-lg shadow-md cursor-pointer hover:bg-blue-200 transition">
+                    <h2 class="text-xl font-bold text-blue-900">${domain}</h2>
+                    <p class="text-gray-700">Click to explore the roadmap and resources for ${domain}.</p>
+                </div>
+            `;
+        }
+
+        // Function to redirect to the domain roadmap page
+        function redirectToDomainPage(domain) {
+            window.location.href = `domain-roadmap.html?domain=${encodeURIComponent(domain)}`;
+        }
+
+        // Function to handle trendy block clicks
+        function handleTrendyBlockClick(url) {
+            window.open(url, '_blank'); // Open the URL in a new tab
+        }
+
+        // Display user data when the page loads
+        window.onload = displayUserData;
+    </script>
+</head>
+<body class="bg-blue-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full">
+        <!-- Dashboard Link with Icon -->
+        <div class="flex items-center space-x-4">
+            <a href="#" class="text-lg font-bold flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                Dashboard
+            </a>
+        </div>
+        <!-- User Profile Icon -->
+        <div class="flex items-center space-x-4">
+            <span id="username-nav" class="mr-2">${localStorage.getItem('username') || 'User'}</span>
+            <img src="https://via.placeholder.com/40" alt="User Profile" class="rounded-full">
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-center justify-start p-8">
+        <!-- Welcome Message -->
+        <h1 id="welcome-message" class="text-4xl font-bold text-blue-900 mb-4">Welcome, User!</h1>
+
+        <!-- Selected Domain Block -->
+        <div id="domain-block" class="w-full max-w-md mt-6"></div>
+
+        <!-- Trendy Topics Block -->
+        <div class="w-full max-w-4xl mt-10">
+            <h2 class="text-2xl font-bold text-blue-900 mb-4">Trendy Topics in the Market</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Topic 1 -->
+                <div class="trendy-block" onclick="handleTrendyBlockClick('https://en.wikipedia.org/wiki/Artificial_intelligence')">
+                    <h3 class="text-xl font-bold text-blue-900">Artificial Intelligence</h3>
+                    <p class="text-gray-700 mt-2">Explore the latest trends in AI and machine learning.</p>
+                </div>
+                <!-- Topic 2 -->
+                <div class="trendy-block" onclick="handleTrendyBlockClick('https://en.wikipedia.org/wiki/Web_development')">
+                    <h3 class="text-xl font-bold text-blue-900">Web Development</h3>
+                    <p class="text-gray-700 mt-2">Learn about modern web development frameworks and tools.</p>
+                </div>
+                <!-- Topic 3 -->
+                <div class="trendy-block" onclick="handleTrendyBlockClick('https://en.wikipedia.org/wiki/Digital_marketing')">
+                    <h3 class="text-xl font-bold text-blue-900">Digital Marketing</h3>
+                    <p class="text-gray-700 mt-2">Discover strategies for effective digital marketing campaigns.</p>
+                </div>
+                <!-- Topic 4 -->
+                <div class="trendy-block" onclick="handleTrendyBlockClick('https://en.wikipedia.org/wiki/Cloud_computing')">
+                    <h3 class="text-xl font-bold text-blue-900">Cloud Computing</h3>
+                    <p class="text-gray-700 mt-2">Understand the benefits of cloud computing and its applications.</p>
+                </div>
+                <!-- Topic 5 -->
+                <div class="trendy-block" onclick="handleTrendyBlockClick('https://en.wikipedia.org/wiki/Data_science')">
+                    <h3 class="text-xl font-bold text-blue-900">Data Science</h3>
+                    <p class="text-gray-700 mt-2">Dive into data analysis, visualization, and machine learning.</p>
+                </div>
+                <!-- Topic 6 -->
+                <div class="trendy-block" onclick="handleTrendyBlockClick('https://en.wikipedia.org/wiki/User_experience_design')">
+                    <h3 class="text-xl font-bold text-blue-900">UI/UX Design</h3>
+                    <p class="text-gray-700 mt-2">Learn the principles of user interface and user experience design.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Structures - MargNiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Function to get the domain from URL query parameters
+        function getDomain() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('domain');
+        }
+
+        // Function to mark the level as completed
+        function markLevelCompleted() {
+            const domain = getDomain(); // Get the domain from the URL
+            if (!domain) {
+                alert('Domain not found. Please go back to the roadmap.');
+                return;
+            }
+
+            // Ensure the domain key is in the correct format
+            const progressKey = `progress-${domain.toLowerCase().replace(' ', '-')}`;
+
+            // Get the current progress (default to 0 if not set)
+            const currentProgress = parseInt(localStorage.getItem(progressKey)) || 0;
+
+            // Update progress to the next level
+            const newProgress = currentProgress + 1;
+            localStorage.setItem(progressKey, newProgress);
+
+            alert(`Level ${newProgress} completed! Level ${newProgress + 1} is now unlocked.`);
+
+            // Redirect to the domain roadmap page
+            window.location.href = `domain-roadmap.html?domain=${encodeURIComponent(domain)}`;
+        }
+    </script>
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full">
+        <a href="home.html" class="text-xl font-bold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+        </a>
+        <h1 class="text-2xl font-bold">Control Structures</h1>
+    </nav>
+    <div class="min-h-screen flex flex-col items-center justify-start p-8">
+        <div class="w-full max-w-4xl">
+            <h2 class="text-4xl font-bold text-blue-900 mb-6">Control Structures</h2>
+            <p class="text-gray-700 text-xl">Master loops, conditionals, and control flow in programming.</p>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">1. What are Control Structures?</h3>
+                <p class="text-gray-700 text-xl">
+                    Control structures allow you to control the flow of your program. They include conditionals (if-else, switch) and loops (for, while, do-while). These structures help you make decisions and repeat actions in your code.
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">2. Key Concepts</h3>
+                <p class="text-gray-700 text-xl">
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li><strong>Conditionals:</strong> Execute code based on whether a condition is true or false.</li>
+                        <li><strong>Loops:</strong> Repeat a block of code until a condition is met.</li>
+                        <li><strong>Break and Continue:</strong> Control the flow within loops.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">3. Examples</h3>
+                <p class="text-gray-700 text-xl">
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li>Use an if-else statement to check if a number is even or odd.</li>
+                        <li>Write a for loop to print numbers from 1 to 10.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-3xl font-bold text-blue-900 mb-4">4. Resources</h3>
+                <p class="text-gray-700 text-xl">
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li><strong>Free Notes:</strong></li>
+                        <li><a href="https://www.w3schools.com/python/python_conditions.asp" class="text-blue-600 hover:underline" target="_blank">Python Control Structures - W3Schools</a></li>
+                        <li><a href="https://javascript.info/ifelse" class="text-blue-600 hover:underline" target="_blank">JavaScript Control Structures - JavaScript.info</a></li>
+                    </ul>
+                    <ul class="list-disc list-inside text-gray-700 text-xl">
+                        <li><strong>YouTube Videos:</strong></li>
+                        <li><a href="https://www.youtube.com/watch?v=rfscVS0vtbw" class="text-blue-600 hover:underline" target="_blank">Python Control Structures - FreeCodeCamp</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=PkZNo7MFNFg" class="text-blue-600 hover:underline" target="_blank">JavaScript Control Structures - FreeCodeCamp</a></li>
+                    </ul>
+                </p>
+            </div>
+
+            <button onclick="markLevelCompleted()" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 transition mt-8 text-xl">
+                Mark Level as Completed
+            </button>
+        </div>
+    </div>
+</body>
+</html>

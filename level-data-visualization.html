@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization - MargNiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Function to get the domain from URL query parameters
+        function getDomain() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('domain');
+        }
+
+        // Function to mark the level as completed
+        function markLevelCompleted() {
+            const domain = getDomain(); // Get the domain from the URL
+            if (!domain) {
+                alert('Domain not found. Please go back to the roadmap.');
+                return;
+            }
+
+            // Ensure the domain key is in the correct format
+            const progressKey = `progress-${domain.toLowerCase().replace(' ', '-')}`;
+
+            // Get the current progress (default to 0 if not set)
+            const currentProgress = parseInt(localStorage.getItem(progressKey)) || 0;
+
+            // Update progress to the next level
+            const newProgress = currentProgress + 1;
+            localStorage.setItem(progressKey, newProgress);
+
+            alert(`Level ${newProgress} completed! Level ${newProgress + 1} is now unlocked.`);
+
+            // Redirect to the domain roadmap page
+            window.location.href = `domain-roadmap.html?domain=${encodeURIComponent(domain)}`;
+        }
+    </script>
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full">
+        <a href="home.html" class="text-lg font-bold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+        </a>
+        <h1 class="text-2xl font-bold">Data Visualization</h1>
+    </nav>
+    <div class="min-h-screen flex flex-col items-center justify-start p-8">
+        <div class="w-full max-w-4xl">
+            <h2 class="text-3xl font-bold text-blue-900 mb-6">Data Visualization</h2>
+            <p class="text-gray-700 text-lg">Use tools like Matplotlib and Seaborn to create insightful visualizations.</p>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">What is Data Visualization?</h3>
+                <p class="text-gray-700 text-lg">
+                    Data visualization is the process of representing data graphically to uncover patterns, trends, and insights. It helps in making complex data more understandable and accessible.
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Step-by-Step Guide to Data Visualization</h3>
+                <ol class="list-decimal list-inside text-gray-700 text-lg space-y-4">
+                    <li><strong>Understand Your Data:</strong> Before creating visualizations, analyze your dataset to understand its structure, variables, and relationships.</li>
+                    <li><strong>Choose the Right Visualization:</strong> Depending on the data, select the appropriate chart type (e.g., bar chart, line chart, scatter plot, etc.).</li>
+                    <li><strong>Use Matplotlib for Basic Plots:</strong> Start with Matplotlib to create basic plots like line charts, bar charts, and histograms.</li>
+                    <li><strong>Enhance Visualizations with Seaborn:</strong> Use Seaborn to create more advanced and aesthetically pleasing visualizations, such as heatmaps and pair plots.</li>
+                    <li><strong>Customize Your Plots:</strong> Add titles, labels, legends, and adjust colors to make your visualizations more informative and appealing.</li>
+                    <li><strong>Interpret the Results:</strong> Analyze the visualizations to draw insights and conclusions from the data.</li>
+                </ol>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Resources</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-blue-900">Free Notes</h4>
+                        <ul class="list-disc list-inside text-gray-700 text-lg">
+                            <li><a href="https://www.w3schools.com/python/matplotlib_intro.asp" class="text-blue-600 hover:underline" target="_blank">Matplotlib - W3Schools</a></li>
+                            <li><a href="https://seaborn.pydata.org/" class="text-blue-600 hover:underline" target="_blank">Seaborn Official Documentation</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-blue-900">YouTube Videos</h4>
+                        <ul class="list-disc list-inside text-gray-700 text-lg">
+                            <li><a href="https://www.youtube.com/watch?v=UO98lJQ3QGI" class="text-blue-600 hover:underline" target="_blank">Data Visualization - FreeCodeCamp</a></li>
+                            <li><a href="https://www.youtube.com/watch?v=6GUZXDef2U0" class="text-blue-600 hover:underline" target="_blank">Matplotlib Tutorial - Corey Schafer</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="markLevelCompleted()" class="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition mt-8 text-lg">
+                Mark Level as Completed
+            </button>
+        </div>
+    </div>
+</body>
+</html>

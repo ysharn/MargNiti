@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects & Resume Prep - MargNiti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Function to get the domain from URL query parameters
+        function getDomain() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('domain');
+        }
+
+        // Function to mark the level as completed
+        function markLevelCompleted() {
+            const domain = getDomain(); // Get the domain from the URL
+            if (!domain) {
+                alert('Domain not found. Please go back to the roadmap.');
+                return;
+            }
+
+            // Ensure the domain key is in the correct format
+            const progressKey = `progress-${domain.toLowerCase().replace(' ', '-')}`;
+
+            // Get the current progress (default to 0 if not set)
+            const currentProgress = parseInt(localStorage.getItem(progressKey)) || 0;
+
+            // Update progress to the next level
+            const newProgress = currentProgress + 1;
+            localStorage.setItem(progressKey, newProgress);
+
+            alert(`Level ${newProgress} completed! Level ${newProgress + 1} is now unlocked.`);
+
+            // Redirect to the domain roadmap page
+            window.location.href = `domain-roadmap.html?domain=${encodeURIComponent(domain)}`;
+        }
+    </script>
+</head>
+<body class="bg-blue-50">
+    <nav class="bg-blue-900 text-white p-4 flex justify-between items-center w-full">
+        <a href="home.html" class="text-lg font-bold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Home
+        </a>
+        <h1 class="text-2xl font-bold">Projects & Resume Prep</h1>
+    </nav>
+    <div class="min-h-screen flex flex-col items-center justify-start p-8">
+        <div class="w-full max-w-4xl">
+            <h2 class="text-3xl font-bold text-blue-900 mb-6">Projects & Resume Prep</h2>
+            <p class="text-gray-700 text-lg">Build projects and prepare your resume to showcase your skills.</p>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Why Build Projects?</h3>
+                <p class="text-gray-700 text-lg">
+                    Projects demonstrate your skills and problem-solving abilities to potential employers. They provide practical experience and help you stand out in the job market.
+                </p>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Step-by-Step Guide to Building Projects</h3>
+                <ol class="list-decimal list-inside text-gray-700 text-lg space-y-4">
+                    <li><strong>Choose a Project Idea:</strong> Select a project that aligns with your interests and the skills you want to showcase.</li>
+                    <li><strong>Plan Your Project:</strong> Break down the project into smaller tasks and set a timeline for completion.</li>
+                    <li><strong>Implement the Project:</strong> Write code, create visualizations, or build models based on your project idea.</li>
+                    <li><strong>Test and Debug:</strong> Ensure your project works as expected and fix any issues.</li>
+                    <li><strong>Document Your Work:</strong> Write a README file and document your code to make it easy for others to understand.</li>
+                    <li><strong>Showcase Your Project:</strong> Add the project to your portfolio, GitHub, or resume to showcase your skills.</li>
+                </ol>
+            </div>
+
+            <div class="mt-8">
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Resources</h3>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="text-xl font-bold text-blue-900">Resume Tips</h4>
+                        <ul class="list-disc list-inside text-gray-700 text-lg">
+                            <li><a href="https://www.indeed.com/career-advice/resume-samples" class="text-blue-600 hover:underline" target="_blank">Resume Samples - Indeed</a></li>
+                            <li><a href="https://www.themuse.com/advice/resume-writing-examples" class="text-blue-600 hover:underline" target="_blank">Resume Writing Examples - The Muse</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-blue-900">Project Ideas</h4>
+                        <ul class="list-disc list-inside text-gray-700 text-lg">
+                            <li>Predictive Analytics Project</li>
+                            <li>Data Visualization Dashboard</li>
+                            <li>Machine Learning Model Deployment</li>
+                            <li>Web Scraping and Data Analysis</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="markLevelCompleted()" class="bg-blue-600 text-white py-3 px-8 rounded-lg hover:bg-blue-700 transition mt-8 text-lg">
+                Mark Level as Completed
+            </button>
+        </div>
+    </div>
+</body>
+</html>
